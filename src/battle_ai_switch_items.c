@@ -145,7 +145,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
 
 static bool8 ShouldSwitchIfNaturalCure(void)
 {
-    if (!(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
+    if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY) // NEW: Don't try to switch without a status.
      || (gBattleMons[gActiveBattler].ability != ABILITY_NATURAL_CURE)
      || (gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP / 2))
         return FALSE;
