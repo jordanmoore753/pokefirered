@@ -59,7 +59,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
              || i == gBattlerPartyIndexes[gActiveBattler])
                 continue;
             GetMonData(&gEnemyParty[i], MON_DATA_SPECIES); // Unused return value.
-            GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.        
+            GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.
             for (opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), j = 0; j < MAX_MON_MOVES; ++j)
             {
                 move = GetMonData(&gEnemyParty[i], MON_DATA_MOVE1 + j);
@@ -85,7 +85,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
     u8 absorbingTypeAbility;
     s32 i;
 
-    if ((HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3) 
+    if ((HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3)
     || (gLastLandedMoves[gActiveBattler] == MOVE_NONE))
         return FALSE;
     if (gLastLandedMoves[gActiveBattler] == 0xFFFF
@@ -307,9 +307,10 @@ static bool8 ShouldSwitch(void)
 
     if ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
      || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_SHADOW_TAG, 0, 0)
-     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_ARENA_TRAP, 0, 0))
-        return FALSE; // misses the flying or levitate check
+     || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_SHADOW_TAG, 0, 0))
+    if (AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_ARENA_TRAP, 0, 0))
+        if ((gBattleMons[gActiveBattler].type1 != TYPE_FLYING) && (gBattleMons[gActiveBattler].type2 != TYPE_FLYING) && (gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE))
+            return FALSE;
     if (AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_MAGNET_PULL, 0, 0))
         if ((gBattleMons[gActiveBattler].type1 == TYPE_STEEL) || (gBattleMons[gActiveBattler].type2 == TYPE_STEEL))
             return FALSE;
