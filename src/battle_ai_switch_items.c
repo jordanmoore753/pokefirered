@@ -59,7 +59,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
              || i == gBattlerPartyIndexes[gActiveBattler])
                 continue;
             GetMonData(&gEnemyParty[i], MON_DATA_SPECIES); // Unused return value.
-            GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.        
+            GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.
             for (opposingBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), j = 0; j < MAX_MON_MOVES; ++j)
             {
                 move = GetMonData(&gEnemyParty[i], MON_DATA_MOVE1 + j);
@@ -85,7 +85,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
     u8 absorbingTypeAbility;
     s32 i;
 
-    if ((HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3) 
+    if ((HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3)
     || (gLastLandedMoves[gActiveBattler] == MOVE_NONE))
         return FALSE;
     if (gLastLandedMoves[gActiveBattler] == 0xFFFF
@@ -297,6 +297,14 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
         }
     }
     return FALSE;
+}
+
+static bool32 HasBadOdds(u32 battler)
+{
+    // Variables
+    u8 opposingPosition, atkType1, atkType2, defType1, defType2;
+    s32 i, damageDealt = 0, maxDamageDealt = 0, damageTaken = 0, maxDamageTaken = 0;
+    u32 aiMove, playerMove, aiBestMove = MOVE_NONE, aiAbility = AI_DATA->abilities[battler], opposingBattler, weather = AI_GetWeather();
 }
 
 static bool8 ShouldSwitch(void)
